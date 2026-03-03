@@ -1,467 +1,521 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pisscourse</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --bg-color: #F5F5F5;
-            --card-bg: white;
-            --text-primary: #333;
-            --text-secondary: #666;
-            --text-tertiary: #888;
-            --header-bg: #47cf50;
-            --border-color: #E0E0E0;
-            --search-bg: white;
-            --search-border: none;
-        }
+      :root {
+        --bg-color: #f5f5f5;
+        --card-bg: white;
+        --text-primary: #333;
+        --text-secondary: #666;
+        --text-tertiary: #888;
+        --header-bg: #47cf50;
+        --border-color: #e0e0e0;
+        --search-bg: white;
+        --search-border: none;
+      }
 
-        [data-theme="dark"] {
-            --bg-color: #0f0f23;
-            --card-bg: #1e1e3f;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0c0;
-            --text-tertiary: #808090;
-            --header-bg: #0f0f23;
-            --border-color: #47cf50;
-            --search-bg: #1e1e3f;
-            --search-border: 2px solid #47cf50;
-        }
+      [data-theme="dark"] {
+        --bg-color: #0f0f23;
+        --card-bg: #1e1e3f;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0c0;
+        --text-tertiary: #808090;
+        --header-bg: #0f0f23;
+        --border-color: #47cf50;
+        --search-bg: #1e1e3f;
+        --search-border: 2px solid #47cf50;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.5;
-            transition: background-color 0.3s, color 0.3s;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        line-height: 1.5;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
 
-        /* Header */
-        .header {
-            background-color: var(--header-bg);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.3s;
-        }
+      /* Header */
+      .header {
+        background-color: var(--header-bg);
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: background-color 0.3s;
+      }
 
-        .location-selector {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-        }
+      .location-selector {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-        [data-theme="dark"] .location-selector {
-            color: #47cf50;
-        }
+      [data-theme="dark"] .location-selector {
+        color: #47cf50;
+      }
 
-        .location-icon {
-            font-size: 18px;
-        }
+      .location-icon {
+        font-size: 18px;
+      }
 
-        .dropdown-arrow {
-            font-size: 12px;
-        }
+      .dropdown-arrow {
+        font-size: 12px;
+      }
 
-        .header-icons {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
+      .header-icons {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
 
-        .header-icon {
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
-            position: relative;
-        }
+      .header-icon {
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        position: relative;
+      }
 
-        [data-theme="dark"] .header-icon {
-            color: #47cf50;
-        }
+      [data-theme="dark"] .header-icon {
+        color: #47cf50;
+      }
 
-        /* Search Bar */
-        .search-container {
-            background-color: var(--header-bg);
-            padding: 0 16px 12px;
-            position: sticky;
-            top: 52px;
-            z-index: 99;
-            transition: background-color 0.3s;
-        }
+      /* Search Bar */
+      .search-container {
+        background-color: var(--header-bg);
+        padding: 0 16px 12px;
+        position: sticky;
+        top: 52px;
+        z-index: 99;
+        transition: background-color 0.3s;
+      }
 
-        .search-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+      .search-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
 
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            font-size: 16px;
-            color: var(--text-tertiary);
-            pointer-events: none;
-        }
+      .search-icon {
+        position: absolute;
+        left: 12px;
+        font-size: 16px;
+        color: var(--text-tertiary);
+        pointer-events: none;
+      }
 
-        .search-input {
-            width: 100%;
-            padding: 10px 36px 10px 36px;
-            border: var(--search-border);
-            border-radius: 20px;
-            font-size: 15px;
-            outline: none;
-            background-color: var(--search-bg);
-            color: var(--text-primary);
-            transition: all 0.3s;
-        }
+      .search-input {
+        width: 100%;
+        padding: 10px 36px 10px 36px;
+        border: var(--search-border);
+        border-radius: 20px;
+        font-size: 15px;
+        outline: none;
+        background-color: var(--search-bg);
+        color: var(--text-primary);
+        transition: all 0.3s;
+      }
 
-        .search-input::placeholder {
-            color: var(--text-tertiary);
-        }
+      .search-input::placeholder {
+        color: var(--text-tertiary);
+      }
 
-        .search-clear {
-            position: absolute;
-            right: 12px;
-            font-size: 18px;
-            color: var(--text-tertiary);
-            cursor: pointer;
-            display: none;
-        }
+      .search-clear {
+        position: absolute;
+        right: 12px;
+        font-size: 18px;
+        color: var(--text-tertiary);
+        cursor: pointer;
+        display: none;
+      }
 
-        .search-clear.visible {
-            display: block;
-        }
+      .search-clear.visible {
+        display: block;
+      }
 
-        /* Feed Container */
+      /* Feed Container */
+      .feed {
+        padding: 0 16px 80px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Post Card */
+      .post-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+        transition: background-color 0.3s;
+      }
+
+      .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .post-user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .post-username {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--text-primary);
+      }
+
+      .post-handle {
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      .post-meta {
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+
+      .post-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+
+      .post-body {
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .post-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .reactions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .reaction-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        background-color: var(--bg-color);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      [data-theme="dark"] .reaction-item {
+        background-color: #2a2a5a;
+      }
+
+      .reaction-item:hover {
+        transform: scale(1.1);
+      }
+
+      .reaction-emoji {
+        font-size: 18px;
+      }
+
+      .reaction-count {
+        font-size: 13px;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      /* Responsive */
+      @media (min-width: 768px) {
         .feed {
-            padding: 0 16px 80px;
-            max-width: 600px;
-            margin: 0 auto;
+          max-width: 600px;
         }
-
-        /* Post Card */
-        .post-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: background-color 0.3s;
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .post-user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .post-username {
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--text-primary);
-        }
-
-        .post-handle {
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .post-meta {
-            font-size: 13px;
-            color: var(--text-tertiary);
-        }
-
-        .post-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .post-body {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .post-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .reactions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .reaction-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            background-color: var(--bg-color);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        [data-theme="dark"] .reaction-item {
-            background-color: #2a2a5a;
-        }
-
-        .reaction-item:hover {
-            transform: scale(1.1);
-        }
-
-        .reaction-emoji {
-            font-size: 18px;
-        }
-
-        .reaction-count {
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Responsive */
-        @media (min-width: 768px) {
-            .feed {
-                max-width: 600px;
-            }
-        }
+      }
     </style>
-</head>
-<body x-data="feedApp()" :data-theme="darkMode ? 'dark' : 'light'">
+  </head>
+  <body x-data="feedApp()" :data-theme="darkMode ? 'dark' : 'light'">
     <!-- Header -->
     <header class="header">
-        <div class="location-selector">
-            <span class="location-icon">☀️</span>
-            <span x-text="location"></span>
-            <span class="dropdown-arrow">▼</span>
-        </div>
-        <div class="header-icons">
-            <span class="header-icon" @click="showSearch = !showSearch">🔍</span>
-            <span class="header-icon" @click="toggleDarkMode()" x-text="darkMode ? '☀️' : '🌙'"></span>
-        </div>
+      <div class="location-selector">
+        <span class="location-icon">☀️</span>
+        <span x-text="location"></span>
+        <span class="dropdown-arrow">▼</span>
+      </div>
+      <div class="header-icons">
+        <span class="header-icon" @click="showSearch = !showSearch">🔍</span>
+        <span
+          class="header-icon"
+          @click="toggleDarkMode()"
+          x-text="darkMode ? '☀️' : '🌙'"
+        ></span>
+      </div>
     </header>
 
     <!-- Search Bar -->
     <div class="search-container" x-show="showSearch" x-transition>
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input 
-                type="text" 
-                class="search-input" 
-                placeholder="Search posts..." 
-                x-model="searchQuery"
-            >
-            <span 
-                class="search-clear" 
-                :class="{ 'visible': searchQuery }"
-                @click="searchQuery = ''"
-            >✕</span>
-        </div>
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search posts..."
+          x-model="searchQuery"
+        />
+        <span
+          class="search-clear"
+          :class="{ 'visible': searchQuery }"
+          @click="searchQuery = ''"
+          >✕</span
+        >
+      </div>
     </div>
 
     <!-- Feed -->
     <main class="feed">
-        <template x-for="post in filteredPosts" :key="post.id">
-            <article class="post-card">
-                <div class="post-header">
-                    <div class="post-user-info">
-                        <div class="post-username">
-                            <span x-text="post.name"></span>
-                            <span class="post-handle" x-text="'@' + post.handle"></span>
-                        </div>
-                        <div class="post-meta">
-                            <span x-text="post.location + ' • '"></span>
-                            <span x-text="post.timestamp"></span>
-                        </div>
-                    </div>
+      <template x-for="post in filteredPosts" :key="post.id">
+        <article class="post-card">
+          <div class="post-header">
+            <div class="post-user-info">
+              <div class="post-username">
+                <span x-text="post.name"></span>
+                <span class="post-handle" x-text="'@' + post.handle"></span>
+              </div>
+              <div class="post-meta">
+                <span x-text="post.location + ' • '"></span>
+                <span x-text="post.timestamp"></span>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="post-title" x-text="post.title"></h2>
+          <p class="post-body" x-text="post.body"></p>
+
+          <div class="post-actions">
+            <div class="reactions">
+              <template x-for="emoji in post.reactions" :key="emoji">
+                <div class="reaction-item">
+                  <span class="reaction-emoji" x-text="emoji"></span>
                 </div>
-                
-                <h2 class="post-title" x-text="post.title"></h2>
-                <p class="post-body" x-text="post.body"></p>
-                
-                <div class="post-actions">
-                    <div class="reactions">
-                        <template x-for="emoji in post.reactions" :key="emoji">
-                            <div class="reaction-item">
-                                <span class="reaction-emoji" x-text="emoji"></span>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </article>
-        </template>
+              </template>
+            </div>
+          </div>
+        </article>
+      </template>
     </main>
 
     <script>
-        function feedApp() {
-            return {
-                location: 'Philadelphia, PA',
-                showSearch: false,
-                searchQuery: '',
-                darkMode: localStorage.getItem('darkMode') === 'true',
-                
-                init() {
-                    // Watch for dark mode changes and save to localStorage
-                    this.$watch('darkMode', value => {
-                        localStorage.setItem('darkMode', value);
-                    });
-                },
-                
-                toggleDarkMode() {
-                    this.darkMode = !this.darkMode;
-                },
-                
-                // Mock data - easily add more posts here
-                posts: [
-                    {
-                        id: 1,
-                        name: 'Carmen',
-                        handle: 'themmagoldman',
-                        location: 'Maple Shade, NJ',
-                        timestamp: 'Sep 11, 2023',
-                        title: 'Was it just me???',
-                        body: "Y'all lying on here about bike stop!!! I went a few weeks ago and it was WH A C K. nowhere to sit, everywhere smells like pee, nowhere to mingle, literally the highlight is a pool table like every other bar??? Y'all pls raise your standards for queer spaces we deserve better.",
-                        reactions: []
-                    },
-                    {
-                        id: 2,
-                        name: 'Florens',
-                        handle: 'flo_machina',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: 'Piss Stank Discourse',
-                        body: `I can't believe we're having one but if we must I'll go on record as saying "Always keep the p p in Philadelphia" go Birds 🦅 🦅 🦅`,
-                        reactions: [ '🔥', '💯', '💜']
-                    },
-                    {
-                        id: 3,
-                        name: 'DoYouHearTheAngels',
-                        handle: 'caresshercoffin',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `Bike stop doesn't smell`,
-                        body: `That heavenly aroma is none other than love baby. Gays of all kinds showering each other with love and joy, ESP during pride (Phew, had to get some air). Life is so exciting, don't let your sense overwhelm you. Also we need positivity for the spot where Dyke Night happens too cuz I miss that sm!!`,
-                        reactions: [ '💯', '🤣', '💜']
-                    },
-                    {
-                        id: 4,
-                        name: 'C',
-                        handle: 'sillygoofydude_',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `Pisscourse Fomo`,
-                        body: `I have nothing to contribute to this conversation besides the portmanteau above. Carry on.`,
-                        reactions: [ '🔥', '🤣', '💜']
-                    },
-                    {
-                        id: 5,
-                        name: 'Monica',
-                        handle: 'monicamillions',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `Filtering Lex to 27+`,
-                        body: `Has only shown me people with pro-piss opinions on the current pisscourse. I think everybody needs to chill out and surreptitiously drink some trans piss out of a Gatorade bottle in public like god intended`,
-                        reactions: [ '💯', '🤣', '💜']
-                    },
-                    {
-                        id: 6,
-                        name: 'Monica',
-                        handle: 'monicamillions',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `All those hormones that`,
-                        body: `change your body's endocrine system in subtle and beautiful ways and you're just gonna flush that piss down the toilet???? Serious about the yellow hanky in my right pocket. Tap me on the shoulder if you see me - I keep an empty bottle in my purse (pic related)`,
-                        reactions: [ '🔥', '🤣', '💜']
-                    },
-                    {
-                        id: 7,
-                        name: 'Isabelle',
-                        handle: 'lilbellepeep',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `golden discussions today`,
-                        body: `I dig it like honestly it's better to be pissed on then pissed off tbh also happy holidays go and spin DJ Yung Tell'Em - GOD Bless The U.S.A today 9/11 TAKIN OVER`,
-                        reactions: [ '🔥', '🤣', '💜']
-                    },
-                    {
-                        id: 8,
-                        name: 'Grinn',
-                        handle: 'unsanctioned_bullshit',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `I Miss the Piss`,
-                        body: `(Its been some golden entertainment) but I'm slowly decreasing the radius of my online presence and am leaving this app for the forseable future. Give me a follow in instagram before I disappear in a poof of smoke!@mammoth_rig`,
-                        reactions: ['💜']
-                    },
-                    {
-                        id: 9,
-                        name: 'a',
-                        handle: 'pedropascalsgreen_juice',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `let it mellow`,
-                        body: `literally every dive bar smells like piss, not just bike stop. grow up and shut up.`,
-                        reactions: ['🤣','💜', '💯']
-                    },
-                    {
-                        id: 10,
-                        name: 'natalie',
-                        handle: 'gnastynatalie',
-                        location: 'Philadelphia, PA',
-                        timestamp: 'Sep 11, 2023',
-                        title: `piss posting`,
-                        body: `everyone's all "i want a feral bitch" until she starts pissing all over bike stop to mark her territory, smh`,
-                        reactions: [ '💯', '💜','🤣']
-                    },
-                    
-                ],
-                
-                get filteredPosts() {
-                    if (!this.searchQuery.trim()) {
-                        return this.posts.sort((a,b) => b.id - a.id);
-                    }
-                    const query = this.searchQuery.toLowerCase();
-                    return this.posts.filter(post => 
-                        post.title.toLowerCase().includes(query) ||
-                        post.body.toLowerCase().includes(query) ||
-                        post.name.toLowerCase().includes(query) ||
-                        post.handle.toLowerCase().includes(query)
-                    ).sort((a,b) => b.id - a.id);
-                }
+      function feedApp() {
+        return {
+          location: "Philadelphia, PA",
+          showSearch: false,
+          searchQuery: "",
+          darkMode: localStorage.getItem("darkMode") === "true",
+
+          init() {
+            // Watch for dark mode changes and save to localStorage
+            this.$watch("darkMode", (value) => {
+              localStorage.setItem("darkMode", value);
+            });
+          },
+
+          toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+          },
+
+          // Mock data - easily add more posts here
+          posts: [
+            {
+              id: 1,
+              name: "Carmen",
+              handle: "themmagoldman",
+              location: "Maple Shade, NJ",
+              timestamp: "Sep 11, 2023",
+              title: "Was it just me???",
+              body: "Y'all lying on here about bike stop!!! I went a few weeks ago and it was WH A C K. nowhere to sit, everywhere smells like pee, nowhere to mingle, literally the highlight is a pool table like every other bar??? Y'all pls raise your standards for queer spaces we deserve better.",
+              reactions: [],
+            },
+            {
+              id: 2,
+              name: "Florens",
+              handle: "flo_machina",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: "Piss Stank Discourse",
+              body: `I can't believe we're having one but if we must I'll go on record as saying "Always keep the p p in Philadelphia" go Birds 🦅 🦅 🦅`,
+              reactions: ["🔥", "💯", "💜"],
+            },
+            {
+              id: 3,
+              name: "DoYouHearTheAngels",
+              handle: "caresshercoffin",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Bike stop doesn't smell`,
+              body: `That heavenly aroma is none other than love baby. Gays of all kinds showering each other with love and joy, ESP during pride (Phew, had to get some air). Life is so exciting, don't let your sense overwhelm you. Also we need positivity for the spot where Dyke Night happens too cuz I miss that sm!!`,
+              reactions: ["💯", "🤣", "💜"],
+            },
+            {
+              id: 4,
+              name: "C",
+              handle: "sillygoofydude_",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Pisscourse Fomo`,
+              body: `I have nothing to contribute to this conversation besides the portmanteau above. Carry on.`,
+              reactions: ["🔥", "🤣", "💜"],
+            },
+            {
+              id: 5,
+              name: "Monica",
+              handle: "monicamillions",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Filtering Lex to 27+`,
+              body: `Has only shown me people with pro-piss opinions on the current pisscourse. I think everybody needs to chill out and surreptitiously drink some trans piss out of a Gatorade bottle in public like god intended`,
+              reactions: ["💯", "🤣", "💜"],
+            },
+            {
+              id: 6,
+              name: "Monica",
+              handle: "monicamillions",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `All those hormones that`,
+              body: `change your body's endocrine system in subtle and beautiful ways and you're just gonna flush that piss down the toilet???? Serious about the yellow hanky in my right pocket. Tap me on the shoulder if you see me - I keep an empty bottle in my purse (pic related)`,
+              reactions: ["🔥", "🤣", "💜"],
+            },
+            {
+              id: 7,
+              name: "Isabelle",
+              handle: "lilbellepeep",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `golden discussions today`,
+              body: `I dig it like honestly it's better to be pissed on then pissed off tbh also happy holidays go and spin DJ Yung Tell'Em - GOD Bless The U.S.A today 9/11 TAKIN OVER`,
+              reactions: ["🔥", "🤣", "💜"],
+            },
+            {
+              id: 8,
+              name: "Grinn",
+              handle: "unsanctioned_bullshit",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `I Miss the Piss`,
+              body: `(Its been some golden entertainment) but I'm slowly decreasing the radius of my online presence and am leaving this app for the forseable future. Give me a follow in instagram before I disappear in a poof of smoke!@mammoth_rig`,
+              reactions: ["💜"],
+            },
+            {
+              id: 9,
+              name: "a",
+              handle: "pedropascalsgreen_juice",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `let it mellow`,
+              body: `literally every dive bar smells like piss, not just bike stop. grow up and shut up.`,
+              reactions: ["🤣", "💜", "💯"],
+            },
+            {
+              id: 10,
+              name: "natalie",
+              handle: "gnastynatalie",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `piss posting`,
+              body: `everyone's all "i want a feral bitch" until she starts pissing all over bike stop to mark her territory, smh`,
+              reactions: ["💯", "💜", "🤣"],
+            },
+            {
+              id: 11,
+              name: "Em",
+              handle: "em_wandering",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Forlorn for piss`,
+              body: `I love that when summer ends and all my time disappears the piss kinksters come out to clown on someone for not knowing what a bar is. Where was everyone when I actually had time 😭😭😭😭`,
+              reactions: ["🔥", "🤣", "💜"],
+            },
+            {
+              id: 12,
+              name: "Alex",
+              handle: "alexmath",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Idk just wash ur hands🙏`,
+              body: `And eat some pickles 🥒 to restore your electrolytes. Pissin' aint easy`,
+              reactions: ["💜", "💯", "🤣"],
+            },
+            {
+              id: 13,
+              name: "Marissa",
+              handle: "katpowerclash",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `in my day....`,
+              body: `bars smelled of piss AND cigarette smoke! kids these days... no appreciation for the full olfactory wonders of the city's public houses.`,
+              reactions: ["💯", "🤣", "💜"],
+            },
+            {
+              id: 14,
+              name: "MJ",
+              handle: "mjtboy",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 11, 2023",
+              title: `Speaking of piss`,
+              body: `Anyone want to be my first piss bottom??? 💦💦💦💦💦💦💦💦`,
+              reactions: ["🌹", "🔥", "💜"],
+            },
+          ],
+
+          get filteredPosts() {
+            if (!this.searchQuery.trim()) {
+              return this.posts.sort((a, b) => b.id - a.id);
             }
-        }
+            const query = this.searchQuery.toLowerCase();
+            return this.posts
+              .filter(
+                (post) =>
+                  post.title.toLowerCase().includes(query) ||
+                  post.body.toLowerCase().includes(query) ||
+                  post.name.toLowerCase().includes(query) ||
+                  post.handle.toLowerCase().includes(query),
+              )
+              .sort((a, b) => b.id - a.id);
+          },
+        };
+      }
     </script>
-</body>
+  </body>
 </html>
