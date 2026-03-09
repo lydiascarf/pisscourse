@@ -214,6 +214,7 @@
         color: var(--text-secondary);
         line-height: 1.5;
         margin-bottom: 16px;
+        word-wrap: break-word;
       }
 
       .post-actions {
@@ -321,7 +322,7 @@
           </div>
 
           <h2 class="post-title" x-text="post.title"></h2>
-          <p class="post-body" x-text="post.body"></p>
+          <p class="post-body" x-html="post.body"></p>
 
           <div class="post-actions">
             <div class="reactions">
@@ -679,6 +680,16 @@ the freaks best believe we keep the culture alive! and if anybody has a banjo th
               reactions: ["💯", "🤣", "💜"],
             },
             {
+              id: 33,
+              name: "Lara McBee",
+              handle: "LaraLovesLlamas",
+              location: "Philadelphia, PA",
+              timestamp: "Sep 12, 2023",
+              title: `Bad Bitch's Creed:`,
+              body: "Gate keep.\nGas light.\nGirl piss.",
+              reactions: ["💯", "🔥", "💜"],
+            },
+            {
               id: 99,
               name: "The Host of this Site",
               handle: "luerlock",
@@ -691,11 +702,12 @@ the freaks best believe we keep the culture alive! and if anybody has a banjo th
           ],
 
           get filteredPosts() {
+            const processedPosts = this.posts.map(({body, ...post}) => ({ body: body.replace(/\n/g, '<br>'), ...post}));
             if (!this.searchQuery.trim()) {
-              return this.posts.sort((a, b) => b.id - a.id);
+              return processedPosts.sort((a, b) => b.id - a.id);
             }
             const query = this.searchQuery.toLowerCase();
-            return this.posts
+            return processedPosts
               .filter(
                 (post) =>
                   post.title.toLowerCase().includes(query) ||
