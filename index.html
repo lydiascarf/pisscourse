@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pisscourse</title>
+    <title>the pisscourse 2023</title>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
@@ -272,9 +272,8 @@
     <!-- Header -->
     <header class="header">
       <div class="location-selector">
-        <span class="location-icon">☀️</span>
+        <span class="location-icon">💥</span>
         <span x-text="location"></span>
-        <span class="dropdown-arrow">▼</span>
       </div>
       <div class="header-icons">
         <span class="header-icon" @click="showSearch = !showSearch">🔍</span>
@@ -707,7 +706,7 @@
               timestamp: "Sep 12, 2023",
               title: `☎️ Urology Hotline ☎️`,
               body: "🤳 Please hold 📞",
-              reactions: ["🚚","💜","🤣"],
+              reactions: ["🚚", "💜", "🤣"],
             },
             {
               id: 36,
@@ -717,7 +716,7 @@
               timestamp: "Sep 12, 2023",
               title: `Pissalizations`,
               body: "I thought the pee discourse was a joke. But its real. A kink is a kink and thats fine. Live life.                       Also! Would you rather be pissed off or pissed on?",
-              reactions: ["🌹","💯","💜"],
+              reactions: ["🌹", "💯", "💜"],
             },
             {
               id: 37,
@@ -727,7 +726,7 @@
               timestamp: "Sep 13, 2023",
               title: `if youre mad about`,
               body: "the piss talk perhaps its time to log off the queer dating app. kink belongs at pride and on lex.",
-              reactions: ["🔥","💯","💜"],
+              reactions: ["🔥", "💯", "💜"],
             },
             {
               id: 38,
@@ -737,7 +736,7 @@
               timestamp: "Sep 13, 2023",
               title: `You're #1!`,
               body: "All of you advocating your wants and desires and those fighting against kink-shaming!",
-              reactions: ["🤣","💯","💜"],
+              reactions: ["🤣", "💯", "💜"],
             },
             {
               id: 39,
@@ -747,7 +746,7 @@
               timestamp: "Sep 13, 2023",
               title: `Embarrassing`,
               body: "Being upset about piss posting and wanting people to keep those kink discussions private is like being mad that people are shoving their pronouns in your face.",
-              reactions: ["💜","💯"],
+              reactions: ["💜", "💯"],
             },
             {
               id: 40,
@@ -757,7 +756,7 @@
               timestamp: "Sep 13, 2023",
               title: `If youre pissed about`,
               body: "Piss posting 🤣🥴",
-              reactions: ["🙁", "💜","🤣"],
+              reactions: ["🙁", "💜", "🤣"],
             },
             {
               id: 41,
@@ -797,7 +796,7 @@
               timestamp: "Sep 13, 2023",
               title: `chuckling... giggling even`,
               body: `i do find it pretty funny that the person who was at the center of the ghosting discourse on here a while back is the same person who's pissed off about the current discourse`,
-              reactions: ["💯","💜"],
+              reactions: ["💯", "💜"],
             },
             {
               id: 45,
@@ -807,7 +806,7 @@
               timestamp: "Sep 13, 2023",
               title: `Careful the pipelines`,
               body: `Friendly reminder that policing behavior, especially queer behavior within queer spaces is one of the entryways to the alt right. you have no right to comfort or projecting boundaries, but you are welcome to step away from a queer space at any time if you aren't comfortable with what's in it.`,
-              reactions: ["💯","💜"],
+              reactions: ["💯", "💜"],
             },
             {
               id: 46,
@@ -817,7 +816,7 @@
               timestamp: "Sep 13, 2023",
               title: `I only post wholesomeness`,
               body: `But even I, poster of silly little haiku with cheeping birds and whatnot, can handle a steady stream of pissposts (not sorry). Free the pee!`,
-              reactions: ["💜","🤣","🔥"],
+              reactions: ["💜", "🤣", "🔥"],
             },
             {
               id: 47,
@@ -827,7 +826,7 @@
               timestamp: "Sep 13, 2023",
               title: `I got some boundaries`,
               body: `My boundary is never hearing that people piss. If anyone ever says piss they have violated me`,
-              reactions: ["🔥","💜","🤣"],
+              reactions: ["🔥", "💜", "🤣"],
             },
             {
               id: 48,
@@ -837,7 +836,7 @@
               timestamp: "Sep 13, 2023",
               title: `Pissssssssssss`,
               body: `ssssssssssssssss🐍pissing currently while I post this 🟡w🟡`,
-              reactions: ["🚚","💜","🤣"],
+              reactions: ["🚚", "💜", "🤣"],
             },
             {
               id: 49,
@@ -847,7 +846,7 @@
               timestamp: "Sep 13, 2023",
               title: `Pisscourse`,
               body: `title is for attention this is just your monthly reminder that portal 2 is the greatest video game of all time (robotfuckers rise up)`,
-              reactions: ["🌹","🤣","💯"],
+              reactions: ["🌹", "🤣", "💯"],
             },
 
             {
@@ -863,7 +862,10 @@
           ],
 
           get filteredPosts() {
-            const processedPosts = this.posts.map(({body, ...post}) => ({ body: body.replace(/\n/g, '<br>'), ...post}));
+            const processedPosts = this.posts.map(({ body, ...post }) => ({
+              body: body.replace(/\n/g, "<br>"),
+              ...post,
+            }));
             if (!this.searchQuery.trim()) {
               return processedPosts.sort((a, b) => b.id - a.id);
             }
